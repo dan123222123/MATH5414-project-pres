@@ -5,14 +5,16 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 905d572c-030e-11ef-1cba-bfda5da9ff58
-using DrWatson
-
-# ╔═╡ ee6acf8e-3d54-4447-a6d9-f913c0287cf3
-@quickactivate "MATH5414-project"
+begin
+	using Pkg
+	Pkg.activate(".")
+end
 
 # ╔═╡ df906991-eb40-49bc-9cdd-6172a12dc747
 begin
 	using LinearAlgebra, GridArrays, CUDA, Adapt, NVTX, ThreadsX, Krylov, BenchmarkTools, MatrixDepot;
+
+	#CUDA.versioninfo()
 	
 	CUDA.allowscalar(false);
 	
@@ -193,10 +195,11 @@ begin
 	local g = 50;
 	
 	local T = ComplexF32
-	local A = MatrixDepot.grcar(T,n)
+	#local A = MatrixDepot.grcar(T,n)
+	local A = randn(T,n,n)
 	local E = I
 
-	local gx = EquispacedGrid(g, -4, 4)
+	local gx = EquispacedGrid(g, -2, 2)
 	local grid = ProductGrid(gx, gx * 1im)
 	local gr = collect(real.(grid.grids[1]))
 	local gi = collect(imag.(grid.grids[2]))
@@ -225,9 +228,9 @@ begin
 	local zg = Matrix{T}(sum.(collect(grid))) # matrix
 	local zv = collect(Iterators.flatten(zg)) #vector
 	ccclean()
-	D3 = srgil(zg, A, E, 1, 0; usegpu=true, mit = 500)
+	D3 = srgil(zg, A, E, 1, 0; usegpu=true, mit = 750)
 	ccclean()
-	CUDA.@profile srgil(zg, A, E, 1, 0; usegpu=true, mit = 500)
+	CUDA.@profile srgil(zg, A, E, 1, 0; usegpu=true, mit = 750)
 end
 
 # ╔═╡ fb804b5c-a921-4d9e-b4d5-885dc5272a53
@@ -260,7 +263,6 @@ contourf(gr4, gi4, log10.(D4)'; color= cgrad(:jet))
 
 # ╔═╡ Cell order:
 # ╠═905d572c-030e-11ef-1cba-bfda5da9ff58
-# ╠═ee6acf8e-3d54-4447-a6d9-f913c0287cf3
 # ╠═df906991-eb40-49bc-9cdd-6172a12dc747
 # ╠═281c0899-d94a-42bd-b0e7-7253ca380ed1
 # ╠═520608aa-5e74-4f3c-88d6-2ea890da2093
