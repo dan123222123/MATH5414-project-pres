@@ -1,0 +1,14 @@
+[deps]
+Adapt = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
+GridArrays = "356ae075-8bc9-5ef9-a342-46c9ba26438c"
+Krylov = "ba0b0d4f-ebba-5204-a429-3ac8c609bfb7"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+MatrixDepot = "b51810bb-c9f3-55da-ae3c-350fc1fbce05"
+NVTX = "5da4648a-3479-48b8-97b9-01cb529c0a1f"
+Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
+ThreadsX = "ac1d9e8a-700a-412c-b207-f0111f4b6c0d"
+
+[extras]
+CUDA_Runtime_jll = "76a88914-d11a-5bdc-97e0-2f5a05c973a2"
